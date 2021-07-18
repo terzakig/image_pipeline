@@ -8,7 +8,8 @@ generate_dynamic_reconfigure_options(cfg/ImageRotate.cfg)
 
 catkin_package()
 
-find_package(OpenCV REQUIRED core imgproc)
+set(OpenCV_DIR /usr/local/share/OpenCV)
+find_package(OpenCV ${MY_OPENCV_RELEASE} REQUIRED core imgproc)
 
 # add the executable
 include_directories(${catkin_INCLUDE_DIRS} ${OpenCV_INCLUDE_DIRS})
@@ -24,7 +25,7 @@ install(TARGETS image_rotate
 
 add_executable(image_rotate_exe src/node/image_rotate.cpp)
 SET_TARGET_PROPERTIES(image_rotate_exe PROPERTIES OUTPUT_NAME image_rotate)
-target_link_libraries(image_rotate_exe ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
+target_link_libraries(image_rotate_exe ${catkin_LIBRARIES} ${OpenCV_LIBS})
 
 install(TARGETS image_rotate_exe
         DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}

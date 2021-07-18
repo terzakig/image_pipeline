@@ -4,7 +4,8 @@ project(image_proc)
 find_package(catkin REQUIRED)
 
 find_package(catkin REQUIRED cv_bridge dynamic_reconfigure image_geometry image_transport nodelet nodelet_topic_tools roscpp sensor_msgs)
-find_package(OpenCV REQUIRED)
+set(OpenCV_DIR /usr/local/share/OpenCV)
+find_package(OpenCV ${MY_OPENCV_RELEASE} REQUIRED)
 find_package(Boost REQUIRED COMPONENTS thread)
 
 if(cv_bridge_VERSION VERSION_GREATER "1.12.0")
@@ -38,7 +39,7 @@ add_library(${PROJECT_NAME} src/libimage_proc/processor.cpp
                                 src/nodelets/crop_non_zero.cpp
 )
 add_dependencies(${PROJECT_NAME} ${PROJECT_NAME}_gencfg)
-target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${OpenCV_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${OpenCV_LIBS})
 
 install(TARGETS ${PROJECT_NAME}
         ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
@@ -54,7 +55,7 @@ install(FILES nodelet_plugins.xml
 
 # Standalone node
 add_executable(image_proc_exe src/nodes/image_proc.cpp)
-target_link_libraries(image_proc_exe ${PROJECT_NAME}  ${Boost_LIBRARIES} ${OpenCV_LIBRARIES})
+target_link_libraries(image_proc_exe ${PROJECT_NAME}  ${Boost_LIBRARIES} ${OpenCV_LIBS})
 SET_TARGET_PROPERTIES(image_proc_exe PROPERTIES OUTPUT_NAME image_proc)
 install(TARGETS image_proc_exe
         DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
