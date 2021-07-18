@@ -15,7 +15,7 @@ find_package(OpenCV ${MY_OPENCV_RELEASE} REQUIRED core imgproc)
 include_directories(${catkin_INCLUDE_DIRS} ${OpenCV_INCLUDE_DIRS})
 
 add_library(${PROJECT_NAME} SHARED src/nodelet/image_rotate_nodelet.cpp)
-target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES} ${OpenCV_LIBS})
 add_dependencies(${PROJECT_NAME} ${PROJECT_NAME}_gencfg)
 install(TARGETS image_rotate
         ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
